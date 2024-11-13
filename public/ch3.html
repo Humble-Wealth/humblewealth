@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Chapter Three: Trading Strategy Development | HumbleWealth</title>
+        <link rel="icon" href="data:,">
+        <meta name="msapplication-config" content="none" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #0a0a0a;
+            --secondary-bg: #1a1a1a;
+            --accent-color: #00ffaa;
+            --text-color: #ffffff;
+            --header-height: 60px;
+        }
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Share Tech Mono', monospace;
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            height: 100%;
+            overflow-x: hidden;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        .background-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .diamond-line {
+            position: absolute;
+            background: linear-gradient(45deg, transparent, var(--accent-color), transparent);
+            transition: opacity 0.3s ease;
+            opacity: 0.2;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            background-color: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            padding: 0 2rem;
+        }
+        .navbar-brand {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-color);
+            text-decoration: none;
+            background: linear-gradient(45deg, var(--accent-color), #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientFade 5s ease infinite;
+            background-size: 200% 200%;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        .nav-link {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: var(--accent-color);
+        }
+        h1, h2 {
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--accent-color), #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientFade 5s ease infinite;
+            background-size: 200% 200%;
+        }
+        h1 {
+            font-size: 3.5rem;
+        }
+        h2 {
+            font-size: 2.5rem;
+        }
+        @keyframes gradientFade {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .content {
+            padding-top: calc(var(--header-height) + 2rem);
+        }
+        .section {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: 4rem 0;
+        }
+        .section-content {
+            max-width: 100%;
+            width: 100%;
+            padding: 3rem;
+            background-color: rgba(26, 26, 26, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 2;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            overflow: hidden;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: stretch;
+            min-height: calc(100vh - 200px);
+        }
+        .section-content:hover {
+            background-color: rgba(45, 119, 107, 0.171);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        .video-container {
+            width: 45%;
+            display: flex;
+            flex-direction: column;
+        }
+        .description-container {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        .video-thumbnail {
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%;
+            background-color: var(--secondary-bg);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        .video-thumbnail i {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            color: var(--accent-color);
+            opacity: 0.8;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            background: linear-gradient(45deg, var(--accent-color), #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientFade 5s ease infinite;
+            background-size: 200% 200%;
+        }
+        .video-thumbnail:hover {
+            transform: scale(1.05);
+        }
+        .video-thumbnail:hover i {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        .video-topics {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 1rem;
+        }
+        .video-topics li {
+            margin-bottom: 0.5rem;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        .video-topics li:hover {
+            color: var(--accent-color);
+            transform: translateX(10px);
+        }
+        .progress-bar {
+            position: fixed;
+            top: var(--header-height);
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+        }
+        .progress {
+            height: 100%;
+            background-color: var(--accent-color);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            padding: 2rem;
+        }
+        .nav-button {
+            padding: 0.5rem 1rem;
+            background-color: var(--secondary-bg);
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .nav-button:hover {
+            background-color: var(--accent-color);
+            color: var(--primary-bg);
+            transform: translateY(-3px);
+        }
+        .hacker-text {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div id="backgroundPattern" class="background-pattern"></div>
+
+        <header>
+            <div class="navbar-content">
+                <a href="#" class="navbar-brand">HumbleWealth</a>
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="Chapters.html" class="nav-link">Chapters</a>
+                    <a href="#instructors" class="nav-link">Discord</a>
+                    <a href="#enroll" class="nav-link">Log Out</a>
+                </div>
+            </div>
+        </header>
+    
+        <div class="progress-bar">
+            <div class="progress" id="readingProgress"></div>
+        </div>
+    
+        <div class="content">
+            <section id="intro" class="section">
+                <div class="section-content">
+                    <h1>Chapter Three: Trading Strategy Development</h1>
+                    <p>Welcome to Chapter Three of our comprehensive futures trading course. In this chapter, we'll delve into the crucial process of developing robust trading strategies that can withstand the test of market volatility and help you achieve consistent results.</p>
+                    <p>Through a series of five in-depth videos, we'll explore various strategy types, from trend following to mean reversion and breakout trading. You'll learn how to construct strategies from the ground up, incorporating advanced concepts and risk management techniques.</p>
+                    <p>By the end of this chapter, you'll have the knowledge and tools to create, test, and refine your own trading strategies, setting you on the path to becoming a more confident and skilled futures trader. Let's embark on this exciting journey into the world of strategy development!</p>
+                </div>
+            </section>
+    
+            <section id="video12" class="section">
+                <div class="section-content">
+                    <div class="video-container">
+                        <div class="video-thumbnail">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                        <h2>Strategy Building Blocks</h2>
+                        <ul class="video-topics">
+                            <li>Entry rules</li>
+                            <li>Exit rules</li>
+                            <li>Position sizing</li>
+                            <li>Time frames</li>
+                        </ul>
+                    </div>
+                    <div class="description-container">
+                        <p>Discover the fundamental components that form the foundation of any successful trading strategy. This video will guide you through the essential building blocks of strategy development.</p>
+                        <p>We'll start by exploring entry rules, teaching you how to identify optimal points to enter the market based on various technical and fundamental factors. You'll learn how to create clear, objective criteria for initiating trades.</p>
+                        <p>Next, we'll delve into exit rules, covering both profit-taking and stop-loss strategies. You'll understand the importance of predefined exit points and how they contribute to overall risk management.</p>
+                        <p>We'll also discuss position sizing, a critical aspect of risk management that many traders overlook. You'll learn various methods to determine appropriate position sizes based on your account size, risk tolerance, and market conditions.</p>
+                        <p>Finally, we'll explore the concept of time frames and how choosing the right time frame can significantly impact your strategy's performance. By the end of this video, you'll have a solid foundation for constructing robust trading strategies.</p>
+                    </div>
+                </div>
+            </section>
+    
+            <section id="video13" class="section">
+                <div class="section-content">
+                    <div class="video-container">
+                        <div class="video-thumbnail">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                        <h2>Trend Following Strategies</h2>
+                        <ul class="video-topics">
+                            <li>Trend identification</li>
+                            <li>Entry triggers</li>
+                            <li>Trade management</li>
+                            <li>Exit strategies</li>
+                        </ul>
+                    </div>
+                    <div class="description-container">
+                        <p>Explore one of the most popular and time-tested approaches to trading: trend following. This video will teach you how to identify and capitalize on market trends effectively.</p>
+                        <p>We'll begin by discussing various methods of trend identification, including moving averages, trendlines, and momentum indicators. You'll learn how to distinguish between strong trends and choppy markets.</p>
+                        <p>Next, we'll cover entry triggers, showing you how to time your entries to maximize profit potential while minimizing risk. We'll explore concepts like pullbacks, breakouts, and momentum confirmation.</p>
+                        <p>Trade management is crucial in trend following, and we'll discuss techniques for trailing stops, scaling in and out of positions, and adjusting to changing market conditions.</p>
+                        <p>Finally, we'll delve into exit strategies specific to trend following, including how to identify potential trend reversals and when to lock in profits. By the end of this video, you'll have a comprehensive understanding of how to develop and implement trend following strategies in your trading.</p>
+                    </div>
+                </div>
+            </section>
+    
+            <section id="video14" class="section">
+                <div class="section-content">
+                    <div class="video-container">
+                        <div class="video-thumbnail">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                        <h2>Mean Reversion Trading</h2>
+                        <ul class="video-topics">
+                            <li>Identifying opportunities</li>
+                            <li>Entry points</li>
+                            <li>Risk management</li>
+                            <li>Exit techniques</li>
+                        </ul>
+                    </div>
+                    <div class="description-container">
+                        <p>Discover the power of mean reversion trading, a strategy based on the principle that prices and other market indicators tend to fluctuate around an average value over time.</p>
+                        <p>We'll start by teaching you how to identify mean reversion opportunities using statistical measures, overbought/oversold indicators, and price action patterns. You'll learn to recognize when a market has deviated too far from its average.</p>
+                        <p>Next, we'll explore various entry points for mean reversion trades, including how to use support and resistance levels, Bollinger Bands, and other technical tools to time your entries effectively.</p>
+                        <p>Risk management is particularly crucial in mean reversion trading, and we'll cover techniques for setting stop losses, managing position sizes, and dealing with prolonged deviations from the mean.</p>
+                        <p>Finally, we'll discuss exit techniques specific to mean reversion strategies, including profit targets based on historical volatility and dynamic exit points. By the end of this video, you'll have a solid grasp of how to develop and implement mean reversion strategies in your trading arsenal.</p>
+                    </div>
+                </div>
+            </section>
+    
+            <section id="video15" class="section">
+                <div class="section-content">
+                    <div class="video-container">
+                        <div class="video-thumbnail">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                        <h2>Breakout Trading</h2>
+                        <ul class="video-topics">
+                            <li>Pattern recognition</li>
+                            <li>Volume confirmation</li>
+                            <li>False breakouts</li>
+                            <li>Trade management</li>
+                        </ul>
+                    </div>
+                    <div class="description-container">
+                        <p>Master the art of breakout trading, a powerful strategy for capturing strong market moves as they begin. This video will teach you how to identify and trade breakouts effectively.</p>
+                        <p>We'll start with pattern recognition, showing you how to identify key chart patterns that often precede breakouts, such as triangles, flags, and rectangles. You'll learn how to draw and interpret these patterns accurately.</p>
+                        <p>Volume confirmation is crucial in breakout trading, and we'll explore how to use volume analysis to validate breakouts and avoid false signals. You'll understand the relationship between price and volume during breakouts.</p>
+                        <p>False breakouts are a common challenge, and we'll discuss strategies for distinguishing between genuine breakouts and fakeouts. You'll learn techniques for managing risk and avoiding common traps in breakout trading.</p>
+                        <p>Finally, we'll cover trade management specific to breakout strategies, including how to set profit targets, manage stops, and scale into positions. By the end of this video, you'll have a comprehensive understanding of how to develop and implement effective breakout trading strategies.</p>
+                    </div>
+                </div>
+            </section>
+    
+            <section id="video16" class="section">
+                <div class="section-content">
+                    <div class="video-container">
+                        <div class="video-thumbnail">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                        <h2>Advanced Strategy Concepts</h2>
+                        <ul class="video-topics">
+                            <li>Multiple timeframe analysis</li>
+                            <li>Correlation trading</li>
+                            <li>Market internals</li>
+                            <li>Advanced order types</li>
+                        </ul>
+                    </div>
+                    <div class="description-container">
+                        <p>Elevate your trading strategies with advanced concepts that can give you an edge in the markets. This final video of the chapter introduces sophisticated techniques to enhance your trading approach.</p>
+                        <p>We'll begin with multiple timeframe analysis, showing you how to integrate information from different timeframes to make more informed trading decisions. You'll learn how to align trades with larger trends while timing entries on shorter timeframes.</p>
+                        <p>Next, we'll explore correlation trading, teaching you how to identify and exploit relationships between different markets or assets. You'll understand how to use correlations to confirm trades, hedge positions, or find new opportunities.</p>
+                        <p>We'll then delve into market internals, introducing you to indicators and data that provide deeper insights into market strength, sentiment, and potential turning points. You'll learn how to incorporate this information into your strategies.</p>
+                        <p>Finally, we'll cover advanced order types that can automate aspects of your trading strategy, including OCO (One-Cancels-Other) orders, trailing stops, and bracket orders. By the end of this video, you'll have a toolkit of advanced concepts to take your strategy development to the next level.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    
+        <div class="navigation">
+            <a href="ch2.html" class="nav-button">Previous Chapter</a>
+            <a href="ch4.html" class="nav-button">Next Chapter</a>
+        </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const backgroundPattern = document.getElementById('backgroundPattern');
+            const patternSize = 100;
+            const lineThickness = 2;
+
+            function createDiamondPattern() {
+                const width = window.innerWidth;
+                const height = Math.max(document.body.scrollHeight, window.innerHeight);
+                backgroundPattern.style.height = height + 'px';
+
+                for (let x = 0; x < width + patternSize; x += patternSize) {
+                    for (let y = 0; y < height + patternSize; y += patternSize) {
+                        const line1 = document.createElement('div');
+                        line1.className = 'diamond-line';
+                        line1.style.width = `${patternSize * Math.sqrt(2)}px`;
+                        line1.style.height = `${lineThickness}px`;
+                        line1.style.left = `${x - patternSize / 2}px`;
+                        line1.style.top = `${y}px`;
+                        line1.style.transform = 'rotate(45deg)';
+
+                        const line2 = line1.cloneNode();
+                        line2.style.transform = 'rotate(-45deg)';
+
+                        backgroundPattern.appendChild(line1);
+                        backgroundPattern.appendChild(line2);
+                    }
+                }
+            }
+
+            createDiamondPattern();
+
+            window.addEventListener('resize', () => {
+                backgroundPattern.innerHTML = '';
+                createDiamondPattern();
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                const mouseX = e.clientX;
+                const mouseY = e.clientY;
+
+                const lines = document.querySelectorAll('.diamond-line');
+                lines.forEach(line => {
+                    const rect = line.getBoundingClientRect();
+                    const distance = Math.sqrt(
+                        Math.pow(mouseX - (rect.left + rect.width / 2), 2) +
+                        Math.pow(mouseY - (rect.top + rect.height / 2), 2)
+                    );
+
+                    if (distance < 150) {
+                        line.style.opacity = 0.8 - (distance / 150) * 0.6;
+                    } else {
+                        line.style.opacity = 0.2;
+                    }
+                });
+            });
+
+            // Reading progress functionality
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                document.getElementById("readingProgress").style.width = scrolled + "%";
+            });
+
+            // Hacker text effect
+            function hackerTextEffect(element) {
+                const text = element.textContent;
+                const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                const numbers = '0123456789';
+                let iteration = 0;
+                
+                const interval = setInterval(() => {
+                    element.textContent = text.split("")
+                        .map((char, index) => {
+                            if(index < iteration) {
+                                return text[index];
+                            }
+                            if(char === ' ') return ' ';
+                            return numbers[Math.floor(Math.random() * numbers.length)];
+                        })
+                        .join("");
+                    
+                    if(iteration >= text.length){ 
+                        clearInterval(interval);
+                    }
+                    
+                    iteration += 1 / 3;
+                }, 30);
+            }
+
+            function wrapTextWithSpans(element) {
+                element.innerHTML = element.textContent.replace(/\S+/g, "<span class='hacker-text'>$&</span>");
+            }
+
+            document.querySelectorAll('p, h1, h2, li').forEach(wrapTextWithSpans);
+
+            // Intersection Observer for fade-in and hacker text effect
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                        entry.target.querySelectorAll('.hacker-text').forEach(hackerTextEffect);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.section-content').forEach(section => {
+                section.style.opacity = 0;
+                section.style.transform = 'translateY(20px)';
+                section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(section);
+            });
+
+            // Hover effect for video thumbnails
+            document.querySelectorAll('.video-thumbnail').forEach(thumbnail => {
+                thumbnail.addEventListener('mouseenter', () => {
+                    thumbnail.style.transform = 'scale(1.05)';
+                });
+                thumbnail.addEventListener('mouseleave', () => {
+                    thumbnail.style.transform = 'scale(1)';
+                });
+            });
+
+            // Hover effect for section content
+            document.querySelectorAll('.section-content').forEach(content => {
+                content.addEventListener('mouseenter', () => {
+                    content.style.transform = 'translateY(-5px)';
+                    content.style.boxShadow = '0 15px 40px rgba(0, 0, 0, 0.3)';
+                });
+                content.addEventListener('mouseleave', () => {
+                    content.style.transform = 'translateY(0)';
+                    content.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.2)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

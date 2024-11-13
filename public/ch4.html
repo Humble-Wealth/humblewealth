@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Chapter Four: Risk Management and Psychology | HumbleWealth</title>
+        <link rel="icon" href="data:,">
+        <meta name="msapplication-config" content="none" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #0a0a0a;
+            --secondary-bg: #1a1a1a;
+            --accent-color: #00ffaa;
+            --text-color: #ffffff;
+            --header-height: 60px;
+        }
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Share Tech Mono', monospace;
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            height: 100%;
+            overflow-x: hidden;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        .background-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .diamond-line {
+            position: absolute;
+            background: linear-gradient(45deg, transparent, var(--accent-color), transparent);
+            transition: opacity 0.3s ease;
+            opacity: 0.2;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            background-color: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            padding: 0 2rem;
+        }
+        .navbar-brand {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-color);
+            text-decoration: none;
+            background: linear-gradient(45deg, var(--accent-color), #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientFade 5s ease infinite;
+            background-size: 200% 200%;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        .nav-link {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: var(--accent-color);
+        }
+        h1, h2 {
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--accent-color), #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientFade 5s ease infinite;
+            background-size: 200% 200%;
+        }
+        h1 {
+            font-size: 3.5rem;
+        }
+        h2 {
+            font-size: 2.5rem;
+        }
+        @keyframes gradientFade {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .content {
+            padding-top: calc(var(--header-height) + 2rem);
+        }
+        .section {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: 4rem 0;
+        }
+        .section-content {
+            max-width: 100%;
+            width: 100%;
+            padding: 3rem;
+            background-color: rgba(26, 26, 26, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 2;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            overflow: hidden;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: stretch;
+            min-height: calc(100vh - 200px);
+        }
+        .section-content:hover {
+            background-color: rgba(45, 119, 107, 0.171);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        .video-container {
+            width: 45%;
+            display: flex;
+            flex-direction: column;
+        }
+        .description-container {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        .video-thumbnail {
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%;
+            background-color: var(--secondary-bg);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        .video-thumbnail i {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            color: var(--accent-color);
+            opacity: 0.8;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            background: linear-gradient(45deg, var(--accent-color), #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientFade 5s ease infinite;
+            background-size: 200% 200%;
+        }
+        .video-thumbnail:hover {
+            transform: scale(1.05);
+        }
+        .video-thumbnail:hover i {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        .video-topics {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 1rem;
+        }
+        .video-topics li {
+            margin-bottom: 0.5rem;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        .video-topics li:hover {
+            color: var(--accent-color);
+            transform: translateX(10px);
+        }
+        .progress-bar {
+            position: fixed;
+            top: var(--header-height);
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+        }
+        .progress {
+            height: 100%;
+            background-color: var(--accent-color);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            padding: 2rem;
+        }
+        .nav-button {
+            padding: 0.5rem 1rem;
+            background-color: var(--secondary-bg);
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .nav-button:hover {
+            background-color: var(--accent-color);
+            color: var(--primary-bg);
+            transform: translateY(-3px);
+        }
+        .hacker-text {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div id="backgroundPattern" class="background-pattern"></div>
+
+    <header>
+        <div class="navbar-content">
+            <a href="#" class="navbar-brand">HumbleWealth</a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="Chapters.html" class="nav-link">Chapters</a>
+                <a href="#instructors" class="nav-link">Discord</a>
+                <a href="#enroll" class="nav-link">Log Out</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="progress-bar">
+        <div class="progress" id="readingProgress"></div>
+    </div>
+
+    <div class="content">
+        <section id="intro" class="section">
+            <div class="section-content">
+                <h1>Chapter Four: Risk Management and Psychology</h1>
+                <p>Welcome to Chapter Four of our comprehensive futures trading course. In this crucial chapter, we'll explore the twin pillars of successful trading: risk management and trading psychology. These elements are often what separate consistently profitable traders from those who struggle in the markets.</p>
+                <p>Through a series of five in-depth videos, we'll delve into both fundamental and advanced concepts in risk management, uncover the psychological challenges of trading, and guide you in creating a robust trading plan. You'll learn how to protect your capital, manage your emotions, and optimize your trading performance.</p>
+                <p>By the end of this chapter, you'll have a comprehensive understanding of how to manage risk effectively and maintain a winning mindset in the face of market challenges. Let's embark on this critical journey to becoming a more disciplined and psychologically prepared trader!</p>
+            </div>
+        </section>
+
+        <section id="video17" class="section">
+            <div class="section-content">
+                <div class="video-container">
+                    <div class="video-thumbnail">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <h2>Risk Management Foundations</h2>
+                    <ul class="video-topics">
+                        <li>Position sizing</li>
+                        <li>Stop loss placement</li>
+                        <li>Risk-reward ratios</li>
+                        <li>Portfolio allocation</li>
+                    </ul>
+                </div>
+                <div class="description-container">
+                    <p>Discover the fundamental principles of risk management that form the backbone of successful trading. This video will guide you through essential concepts to protect your capital and optimize your trading performance.</p>
+                    <p>We'll start by exploring position sizing techniques, teaching you how to determine the appropriate trade size based on your account balance, risk tolerance, and market volatility. You'll learn various methods to ensure you're not risking too much on any single trade.</p>
+                    <p>Next, we'll delve into stop loss placement strategies, showing you how to set protective stops that balance risk management with giving your trades room to breathe. We'll cover concepts like volatility-based stops and time-based stops.</p>
+                    <p>We'll also discuss the importance of risk-reward ratios in your trading decisions. You'll learn how to assess potential trades based on their risk-reward profiles and how this can impact your long-term profitability.</p>
+                    <p>Finally, we'll explore portfolio allocation, teaching you how to diversify your trades across different markets and strategies to manage overall portfolio risk. By the end of this video, you'll have a solid foundation in risk management principles to apply to your trading.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="video18" class="section">
+            <div class="section-content">
+                <div class="video-container">
+                    <div class="video-thumbnail">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <h2>Advanced Risk Management</h2>
+                    <ul class="video-topics">
+                        <li>Correlation risk</li>
+                        <li>Market exposure</li>
+                        <li>Drawdown management</li>
+                        <li>Portfolio hedging</li>
+                    </ul>
+                </div>
+                <div class="description-container">
+                    <p>Take your risk management skills to the next level with advanced concepts that can help you navigate complex market scenarios. This video introduces sophisticated techniques to enhance your risk management approach.</p>
+                    <p>We'll begin by exploring correlation risk, showing you how to identify and manage risks that arise from correlated positions across different markets. You'll learn techniques to avoid inadvertently concentrating risk in your portfolio.</p>
+                    <p>Next, we'll delve into market exposure management, teaching you how to assess and control your overall exposure to market movements. We'll cover concepts like beta-weighting and delta exposure in options trading.</p>
+                    <p>Drawdown management is crucial for long-term success, and we'll discuss strategies for limiting drawdowns and recovering from periods of losses. You'll learn about techniques like scaling out of losing trades and adjusting your trading size during drawdowns.</p>
+                    <p>Finally, we'll explore portfolio hedging strategies, showing you how to use various instruments to protect your portfolio from adverse market moves. By the end of this video, you'll have a comprehensive toolkit for managing risk in complex trading environments.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="video19" class="section">
+            <div class="section-content">
+                <div class="video-container">
+                    <div class="video-thumbnail">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <h2>Trading Psychology Basics</h2>
+                    <ul class="video-topics">
+                        <li>Emotional control</li>
+                        <li>Decision-making process</li>
+                        <li>Common biases</li>
+                        <li>Stress management</li>
+                    </ul>
+                </div>
+                <div class="description-container">
+                    <p>Uncover the psychological aspects of trading that can make or break your success in the markets. This video introduces you to the basics of trading psychology and how to develop a winning mindset.</p>
+                    <p>We'll start by discussing emotional control, teaching you techniques to manage fear, greed, and other emotions that can impact your trading decisions. You'll learn strategies for staying calm and focused during high-pressure market situations.</p>
+                    <p>Next, we'll explore the decision-making process in trading, showing you how to develop a systematic approach to analyzing opportunities and executing trades. We'll cover concepts like decision fatigue and how to overcome it.</p>
+                    <p>We'll also delve into common cognitive biases that affect traders, such as confirmation bias and recency bias. You'll learn how to recognize these biases in yourself and strategies to mitigate their impact on your trading.</p>
+                    <p>Finally, we'll discuss stress management techniques specific to trading. You'll learn how to cope with the unique stressors of the financial markets and maintain your mental well-being. By the end of this video, you'll have a solid foundation in trading psychology to complement your technical skills.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="video20" class="section">
+            <div class="section-content">
+                <div class="video-container">
+                    <div class="video-thumbnail">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <h2>Advanced Psychology</h2>
+                    <ul class="video-topics">
+                        <li>Fear and greed</li>
+                        <li>Building confidence</li>
+                        <li>Handling losses</li>
+                        <li>Performance optimization</li>
+                    </ul>
+                </div>
+                <div class="description-container">
+                    <p>Dive deeper into the psychological challenges of trading and learn advanced techniques to optimize your mental game. This video will equip you with powerful tools to overcome common psychological hurdles and enhance your trading performance.</p>
+                    <p>We'll begin by exploring the dynamics of fear and greed in the markets, teaching you how to recognize these emotions in yourself and others. You'll learn strategies to harness these emotions productively rather than letting them control your decisions.</p>
+                    <p>Next, we'll discuss techniques for building and maintaining confidence in your trading abilities. We'll cover topics like positive self-talk, visualization, and how to learn effectively from both wins and losses.</p>
+                    <p>Handling losses is a critical skill for any trader, and we'll delve into advanced strategies for coping with and learning from losing trades. You'll learn how to maintain a growth mindset and use losses as stepping stones to improvement.</p>
+                    <p>Finally, we'll explore performance optimization techniques borrowed from sports psychology and other high-performance fields. You'll learn how to enter and maintain a state of flow in your trading, and how to continuously improve your mental game. By the end of this video, you'll have advanced psychological tools to take your trading to the next level.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="video21" class="section">
+            <div class="section-content">
+                <div class="video-container">
+                    <div class="video-thumbnail">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <h2>Creating a Trading Plan</h2>
+                    <ul class="video-topics">
+                        <li>Plan components</li>
+                        <li>Goal setting</li>
+                        <li>Performance metrics</li>
+                        <li>Review process</li>
+                    </ul>
+                </div>
+                <div class="description-container">
+                    <p>Learn how to create a comprehensive trading plan that integrates all the concepts you've learned throughout this course. This final video will guide you through the process of developing a personalized roadmap for your trading success.</p>
+                    <p>We'll start by outlining the essential components of a trading plan, including your trading style, risk management rules, and entry and exit criteria. You'll learn how to document your strategies and create a framework for consistent decision-making.</p>
+                    <p>Next, we'll explore effective goal setting for traders, teaching you how to set SMART (Specific, Measurable, Achievable, Relevant, Time-bound) goals that align with your overall trading objectives. We'll discuss both short-term and long-term goal setting.</p>
+                    <p>We'll then delve into performance metrics, showing you how to track and analyze your trading results. You'll learn about key performance indicators (KPIs) for traders and how to use them to identify areas for improvement.</p>
+                    <p>Finally, we'll discuss the importance of regular review and refinement of your trading plan. You'll learn how to conduct effective post-trade analysis and periodic reviews of your overall performance. By the end of this video, you'll have a robust trading plan and the tools to continuously improve your trading over time.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="navigation">
+        <a href="ch3.html" class="nav-button">Previous Chapter</a>
+        <a href="ch5.html" class="nav-button">Next Chapter</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const backgroundPattern = document.getElementById('backgroundPattern');
+            const patternSize = 100;
+            const lineThickness = 2;
+
+            function createDiamondPattern() {
+                const width = window.innerWidth;
+                const height = Math.max(document.body.scrollHeight, window.innerHeight);
+                backgroundPattern.style.height = height + 'px';
+
+                for (let x = 0; x < width + patternSize; x += patternSize) {
+                    for (let y = 0; y < height + patternSize; y += patternSize) {
+                        const line1 = document.createElement('div');
+                        line1.className = 'diamond-line';
+                        line1.style.width = `${patternSize * Math.sqrt(2)}px`;
+                        line1.style.height = `${lineThickness}px`;
+                        line1.style.left = `${x - patternSize / 2}px`;
+                        line1.style.top = `${y}px`;
+                        line1.style.transform = 'rotate(45deg)';
+
+                        const line2 = line1.cloneNode();
+                        line2.style.transform = 'rotate(-45deg)';
+
+                        backgroundPattern.appendChild(line1);
+                        backgroundPattern.appendChild(line2);
+                    }
+                }
+            }
+
+            createDiamondPattern();
+
+            window.addEventListener('resize', () => {
+                backgroundPattern.innerHTML = '';
+                createDiamondPattern();
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                const mouseX = e.clientX;
+                const mouseY = e.clientY;
+
+                const lines = document.querySelectorAll('.diamond-line');
+                lines.forEach(line => {
+                    const rect = line.getBoundingClientRect();
+                    const distance = Math.sqrt(
+                        Math.pow(mouseX - (rect.left + rect.width / 2), 2) +
+                        Math.pow(mouseY - (rect.top + rect.height / 2), 2)
+                    );
+
+                    if (distance < 150) {
+                        line.style.opacity = 0.8 - (distance / 150) * 0.6;
+                    } else {
+                        line.style.opacity = 0.2;
+                    }
+                });
+            });
+
+            // Reading progress functionality
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                document.getElementById("readingProgress").style.width = scrolled + "%";
+            });
+
+            // Hacker text effect
+            function hackerTextEffect(element) {
+                const text = element.textContent;
+                const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                const numbers = '0123456789';
+                let iteration = 0;
+                
+                const interval = setInterval(() => {
+                    element.textContent = text.split("")
+                        .map((char, index) => {
+                            if(index < iteration) {
+                                return text[index];
+                            }
+                            if(char === ' ') return ' ';
+                            return numbers[Math.floor(Math.random() * numbers.length)];
+                        })
+                        .join("");
+                    
+                    if(iteration >= text.length){ 
+                        clearInterval(interval);
+                    }
+                    
+                    iteration += 1 / 3;
+                }, 30);
+            }
+
+            function wrapTextWithSpans(element) {
+                element.innerHTML = element.textContent.replace(/\S+/g, "<span class='hacker-text'>$&</span>");
+            }
+
+            document.querySelectorAll('p, h1, h2, li').forEach(wrapTextWithSpans);
+
+            // Intersection Observer for fade-in and hacker text effect
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                        entry.target.querySelectorAll('.hacker-text').forEach(hackerTextEffect);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.section-content').forEach(section => {
+                section.style.opacity = 0;
+                section.style.transform = 'translateY(20px)';
+                section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(section);
+            });
+
+            // Hover effect for video thumbnails
+            document.querySelectorAll('.video-thumbnail').forEach(thumbnail => {
+                thumbnail.addEventListener('mouseenter', () => {
+                    thumbnail.style.transform = 'scale(1.05)';
+                });
+                thumbnail.addEventListener('mouseleave', () => {
+                    thumbnail.style.transform = 'scale(1)';
+                });
+            });
+
+            // Hover effect for section content
+            document.querySelectorAll('.section-content').forEach(content => {
+                content.addEventListener('mouseenter', () => {
+                    content.style.transform = 'translateY(-5px)';
+                    content.style.boxShadow = '0 15px 40px rgba(0, 0, 0, 0.3)';
+                });
+                content.addEventListener('mouseleave', () => {
+                    content.style.transform = 'translateY(0)';
+                    content.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.2)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

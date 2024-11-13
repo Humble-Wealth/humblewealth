@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Chapter Five: Advanced Trading Concepts | HumbleWealth</title>
+        <link rel="icon" href="data:,">
+        <meta name="msapplication-config" content="none" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #0a0a0a;
+            --secondary-bg: #1a1a1a;
+            --accent-color: #00ffaa;
+            --text-color: #ffffff;
+            --header-height: 60px;
+        }
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Share Tech Mono', monospace;
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            height: 100%;
+            overflow-x: hidden;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        .background-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .diamond-line {
+            position: absolute;
+            background: linear-gradient(45deg, transparent, var(--accent-color), transparent);
+            transition: opacity 0.3s ease;
+            opacity: 0.2;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            background-color: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            padding: 0 2rem;
+        }
+        .navbar-brand {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-color);
+            text-decoration: none;
+            background: linear-gradient(45deg, var(--accent-color), #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientFade 5s ease infinite;
+            background-size: 200% 200%;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        .nav-link {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: var(--accent-color);
+        }
+        h1, h2 {
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--accent-color), #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientFade 5s ease infinite;
+            background-size: 200% 200%;
+        }
+        h1 {
+            font-size: 3.5rem;
+        }
+        h2 {
+            font-size: 2.5rem;
+        }
+        @keyframes gradientFade {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .content {
+            padding-top: calc(var(--header-height) + 2rem);
+        }
+        .section {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: 4rem 0;
+        }
+        .section-content {
+            max-width: 100%;
+            width: 100%;
+            padding: 3rem;
+            background-color: rgba(26, 26, 26, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 2;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            overflow: hidden;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: stretch;
+            min-height: calc(100vh - 200px);
+        }
+        .section-content:hover {
+            background-color: rgba(45, 119, 107, 0.171);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        .video-container {
+            width: 45%;
+            display: flex;
+            flex-direction: column;
+        }
+        .description-container {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        .video-thumbnail {
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%;
+            background-color: var(--secondary-bg);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        .video-thumbnail i {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            color: var(--accent-color);
+            opacity: 0.8;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            background: linear-gradient(45deg, var(--accent-color), #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientFade 5s ease infinite;
+            background-size: 200% 200%;
+        }
+        .video-thumbnail:hover {
+            transform: scale(1.05);
+        }
+        .video-thumbnail:hover i {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        .video-topics {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 1rem;
+        }
+        .video-topics li {
+            margin-bottom: 0.5rem;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        .video-topics li:hover {
+            color: var(--accent-color);
+            transform: translateX(10px);
+        }
+        .progress-bar {
+            position: fixed;
+            top: var(--header-height);
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+        }
+        .progress {
+            height: 100%;
+            background-color: var(--accent-color);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            padding: 2rem;
+        }
+        .nav-button {
+            padding: 0.5rem 1rem;
+            background-color: var(--secondary-bg);
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .nav-button:hover {
+            background-color: var(--accent-color);
+            color: var(--primary-bg);
+            transform: translateY(-3px);
+        }
+        .hacker-text {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div id="backgroundPattern" class="background-pattern"></div>
+
+    <header>
+        <div class="navbar-content">
+            <a href="#" class="navbar-brand">HumbleWealth</a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="Chapters.html" class="nav-link">Chapters</a>
+                <a href="#instructors" class="nav-link">Discord</a>
+                <a href="#enroll" class="nav-link">Log Out</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="progress-bar">
+        <div class="progress" id="readingProgress"></div>
+    </div>
+
+    <div class="content">
+        <section id="intro" class="section">
+            <div class="section-content">
+                <h1>Chapter Five: Advanced Trading Concepts</h1>
+                <p>Welcome to Chapter Five of our comprehensive futures trading course. In this final chapter, we'll explore advanced concepts that can elevate your trading to a professional level. These sophisticated techniques and tools are designed to give you a competitive edge in the markets.</p>
+                <p>Through a series of four in-depth videos, we'll delve into market microstructure, intermarket analysis, advanced order types, and professional trading tools. You'll gain insights into the finer details of market dynamics and learn how to leverage advanced techniques and technologies in your trading.</p>
+                <p>By the end of this chapter, you'll have a grasp of cutting-edge concepts and tools used by professional traders, setting you on the path to mastery in futures trading. Let's embark on this final leg of our journey into the world of advanced trading!</p>
+            </div>
+        </section>
+
+        <section id="video22" class="section">
+            <div class="section-content">
+                <div class="video-container">
+                    <div class="video-thumbnail">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <h2>Market Microstructure</h2>
+                    <ul class="video-topics">
+                        <li>Order flow</li>
+                        <li>Market depth</li>
+                        <li>Liquidity analysis</li>
+                        <li>Price action</li>
+                    </ul>
+                </div>
+                <div class="description-container">
+                    <p>Dive into the intricate world of market microstructure and gain a deeper understanding of how markets truly function at their core. This video will introduce you to advanced concepts that can sharpen your edge in the markets.</p>
+                    <p>We'll start by exploring order flow analysis, teaching you how to interpret the flow of buy and sell orders to anticipate potential price movements. You'll learn to read order flow indicators and understand their implications for short-term price action.</p>
+                    <p>Next, we'll delve into market depth, showing you how to analyze the order book to gauge supply and demand at different price levels. We'll cover concepts like bid-ask spreads, order book imbalances, and how to use this information in your trading decisions.</p>
+                    <p>Liquidity analysis is crucial for executing large orders and understanding market dynamics. We'll teach you how to assess market liquidity and its impact on your trading strategy, including how to identify and use liquidity pools effectively.</p>
+                    <p>Finally, we'll explore advanced price action techniques, going beyond basic chart patterns to understand the nuances of price movement. By the end of this video, you'll have a sophisticated understanding of market microstructure to inform your trading decisions.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="video23" class="section">
+            <div class="section-content">
+                <div class="video-container">
+                    <div class="video-thumbnail">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <h2>Intermarket Analysis</h2>
+                    <ul class="video-topics">
+                        <li>Market correlations</li>
+                        <li>Cross-market opportunities</li>
+                        <li>Global market relationships</li>
+                        <li>Sector analysis</li>
+                    </ul>
+                </div>
+                <div class="description-container">
+                    <p>Expand your analytical horizons by learning how to analyze relationships between different markets and asset classes. This video will teach you how to use intermarket analysis to gain a broader perspective on market dynamics.</p>
+                    <p>We'll begin by exploring market correlations, showing you how to identify and interpret relationships between different markets. You'll learn about positive and negative correlations, and how to use correlation coefficients in your analysis.</p>
+                    <p>Next, we'll discuss how to identify and capitalize on cross-market opportunities. You'll learn strategies for trading spreads between related markets and how to arbitrage price discrepancies across different exchanges.</p>
+                    <p>We'll then delve into global market relationships, examining how events in one part of the world can impact markets elsewhere. You'll gain insights into how to monitor and interpret global economic data and news events.</p>
+                    <p>Finally, we'll explore sector analysis, teaching you how to analyze relationships between different sectors of the economy and how this can inform your trading decisions. By the end of this video, you'll have a comprehensive toolkit for conducting intermarket analysis and identifying unique trading opportunities.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="video24" class="section">
+            <div class="section-content">
+                <div class="video-container">
+                    <div class="video-thumbnail">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <h2>Advanced Order Types</h2>
+                    <ul class="video-topics">
+                        <li>Conditional orders</li>
+                        <li>OCO orders</li>
+                        <li>Bracket orders</li>
+                        <li>Scale trading</li>
+                    </ul>
+                </div>
+                <div class="description-container">
+                    <p>Master the use of sophisticated order types that can enhance your trading execution and risk management. This video will introduce you to advanced order types used by professional traders to implement complex strategies.</p>
+                    <p>We'll start by exploring conditional orders, teaching you how to set up orders that are only triggered when specific market conditions are met. You'll learn how to use these orders to automate your trading strategies and manage risk more effectively.</p>
+                    <p>Next, we'll delve into OCO (One-Cancels-Other) orders, showing you how to set up pairs of orders where the execution of one automatically cancels the other. We'll discuss how to use OCO orders for setting profit targets and stop losses simultaneously.</p>
+                    <p>We'll then cover bracket orders, which combine entry orders with profit targets and stop losses. You'll learn how to use these orders to implement a complete trade management strategy with a single order.</p>
+                    <p>Finally, we'll explore scale trading techniques, teaching you how to use multiple orders to enter or exit positions gradually. You'll learn strategies for scaling into trends and out of profitable positions. By the end of this video, you'll have a comprehensive understanding of how to use advanced order types to execute sophisticated trading strategies.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="video25" class="section">
+            <div class="section-content">
+                <div class="video-container">
+                    <div class="video-thumbnail">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <h2>Professional Trading Tools</h2>
+                    <ul class="video-topics">
+                        <li>Professional platforms</li>
+                        <li>Analysis software</li>
+                        <li>Automation tools</li>
+                        <li>Data analysis</li>
+                    </ul>
+                </div>
+                <div class="description-container">
+                    <p>Discover the cutting-edge tools and technologies used by professional traders to gain a competitive edge in the markets. This final video will introduce you to advanced platforms and software that can elevate your trading capabilities.</p>
+                    <p>We'll start by exploring professional trading platforms, showcasing advanced features like multi-chart layouts, advanced order entry, and real-time risk management tools. You'll learn how to set up and customize these platforms for optimal performance.</p>
+                    <p>Next, we'll delve into specialized analysis software, introducing you to tools for advanced technical analysis, backtesting, and optimization of trading strategies. We'll cover popular software packages and how to integrate them into your trading workflow.</p>
+                    <p>We'll then explore automation tools, showing you how to use trading bots and algorithmic trading systems to execute your strategies automatically. You'll learn about the benefits and risks of automated trading and how to develop and test trading algorithms.</p>
+                    <p>Finally, we'll discuss advanced data analysis techniques, introducing you to tools for big data analysis, machine learning, and artificial intelligence in trading. You'll gain insights into how professional traders use these technologies to uncover hidden patterns and generate trading ideas. By the end of this video, you'll have a comprehensive understanding of the professional tools available to modern traders and how to leverage them in your trading career.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="navigation">
+        <a href="ch4.html" class="nav-button">Previous Chapter</a>
+        <a href="ch6.html" class="nav-button">Next Chapter</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const backgroundPattern = document.getElementById('backgroundPattern');
+            const patternSize = 100;
+            const lineThickness = 2;
+
+            function createDiamondPattern() {
+                const width = window.innerWidth;
+                const height = Math.max(document.body.scrollHeight, window.innerHeight);
+                backgroundPattern.style.height = height + 'px';
+
+                for (let x = 0; x < width + patternSize; x += patternSize) {
+                    for (let y = 0; y < height + patternSize; y += patternSize) {
+                        const line1 = document.createElement('div');
+                        line1.className = 'diamond-line';
+                        line1.style.width = `${patternSize * Math.sqrt(2)}px`;
+                        line1.style.height = `${lineThickness}px`;
+                        line1.style.left = `${x - patternSize / 2}px`;
+                        line1.style.top = `${y}px`;
+                        line1.style.transform = 'rotate(45deg)';
+
+                        const line2 = line1.cloneNode();
+                        line2.style.transform = 'rotate(-45deg)';
+
+                        backgroundPattern.appendChild(line1);
+                        backgroundPattern.appendChild(line2);
+                    }
+                }
+            }
+
+            createDiamondPattern();
+
+            window.addEventListener('resize', () => {
+                backgroundPattern.innerHTML = '';
+                createDiamondPattern();
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                const mouseX = e.clientX;
+                const mouseY = e.clientY;
+
+                const lines = document.querySelectorAll('.diamond-line');
+                lines.forEach(line => {
+                    const rect = line.getBoundingClientRect();
+                    const distance = Math.sqrt(
+                        Math.pow(mouseX - (rect.left + rect.width / 2), 2) +
+                        Math.pow(mouseY - (rect.top + rect.height / 2), 2)
+                    );
+
+                    if (distance < 150) {
+                        line.style.opacity = 0.8 - (distance / 150) * 0.6;
+                    } else {
+                        line.style.opacity = 0.2;
+                    }
+                });
+            });
+
+            // Reading progress functionality
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                document.getElementById("readingProgress").style.width = scrolled + "%";
+            });
+
+            // Hacker text effect
+            function hackerTextEffect(element) {
+                const text = element.textContent;
+                const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                const numbers = '0123456789';
+                let iteration = 0;
+                
+                const interval = setInterval(() => {
+                    element.textContent = text.split("")
+                        .map((char, index) => {
+                            if(index < iteration) {
+                                return text[index];
+                            }
+                            if(char === ' ') return ' ';
+                            return numbers[Math.floor(Math.random() * numbers.length)];
+                        })
+                        .join("");
+                    
+                    if(iteration >= text.length){ 
+                        clearInterval(interval);
+                    }
+                    
+                    iteration += 1 / 3;
+                }, 30);
+            }
+
+            function wrapTextWithSpans(element) {
+                element.innerHTML = element.textContent.replace(/\S+/g, "<span class='hacker-text'>$&</span>");
+            }
+
+            document.querySelectorAll('p, h1, h2, li').forEach(wrapTextWithSpans);
+
+            // Intersection Observer for fade-in and hacker text effect
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                        entry.target.querySelectorAll('.hacker-text').forEach(hackerTextEffect);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.section-content').forEach(section => {
+                section.style.opacity = 0;
+                section.style.transform = 'translateY(20px)';
+                section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(section);
+            });
+
+            // Hover effect for video thumbnails
+            document.querySelectorAll('.video-thumbnail').forEach(thumbnail => {
+                thumbnail.addEventListener('mouseenter', () => {
+                    thumbnail.style.transform = 'scale(1.05)';
+                });
+                thumbnail.addEventListener('mouseleave', () => {
+                    thumbnail.style.transform = 'scale(1)';
+                });
+            });
+
+            // Hover effect for section content
+            document.querySelectorAll('.section-content').forEach(content => {
+                content.addEventListener('mouseenter', () => {
+                    content.style.transform = 'translateY(-5px)';
+                    content.style.boxShadow = '0 15px 40px rgba(0, 0, 0, 0.3)';
+                });
+                content.addEventListener('mouseleave', () => {
+                    content.style.transform = 'translateY(0)';
+                    content.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.2)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

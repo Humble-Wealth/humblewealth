@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Chapter One: Introduction to Futures Markets | HumbleWealth</title>
+        <link rel="icon" href="data:,">
+        <meta name="msapplication-config" content="none" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #0a0a0a;
+            --secondary-bg: #1a1a1a;
+            --accent-color: #00ffaa;
+            --text-color: #ffffff;
+            --header-height: 60px;
+        }
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Share Tech Mono', monospace;
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            height: 100%;
+            overflow-x: hidden;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        .background-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .diamond-line {
+            position: absolute;
+            background: linear-gradient(45deg, transparent, var(--accent-color), transparent);
+            transition: opacity 0.3s ease;
+            opacity: 0.2;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            background-color: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            padding: 0 2rem;
+        }
+        .navbar-brand {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-color);
+            text-decoration: none;
+            background: linear-gradient(45deg, var(--accent-color), #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientFade 5s ease infinite;
+            background-size: 200% 200%;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        .nav-link {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: var(--accent-color);
+        }
+        h1, h2 {
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--accent-color), #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientFade 5s ease infinite;
+            background-size: 200% 200%;
+        }
+        h1 {
+            font-size: 3.5rem;
+        }
+        h2 {
+            font-size: 2.5rem;
+        }
+        @keyframes gradientFade {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .content {
+            padding-top: calc(var(--header-height) + 2rem);
+        }
+        .section {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: 4rem 0;
+        }
+        .section-content {
+            max-width: 100%;
+            width: 100%;
+            padding: 3rem;
+            background-color: rgba(26, 26, 26, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 2;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            overflow: hidden;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: stretch;
+            min-height: calc(100vh - 200px);
+        }
+        .section-content:hover {
+            background-color: rgba(45, 119, 107, 0.171);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        .video-container {
+            width: 45%;
+            display: flex;
+            flex-direction: column;
+        }
+        .description-container {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        .video-thumbnail {
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%;
+            background-color: var(--secondary-bg);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        .video-thumbnail i {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            color: var(--accent-color);
+            opacity: 0.8;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            background: linear-gradient(45deg, var(--accent-color), #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientFade 5s ease infinite;
+            background-size: 200% 200%;
+        }
+        .video-thumbnail:hover {
+            transform: scale(1.05);
+        }
+        .video-thumbnail:hover i {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        .video-topics {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 1rem;
+        }
+        .video-topics li {
+            margin-bottom: 0.5rem;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        .video-topics li:hover {
+            color: var(--accent-color);
+            transform: translateX(10px);
+        }
+        .progress-bar {
+            position: fixed;
+            top: var(--header-height);
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+        }
+        .progress {
+            height: 100%;
+            background-color: var(--accent-color);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            padding: 2rem;
+        }
+        .nav-button {
+            padding: 0.5rem 1rem;
+            background-color: var(--secondary-bg);
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .nav-button:hover {
+            background-color: var(--accent-color);
+            color: var(--primary-bg);
+            transform: translateY(-3px);
+        }
+        .hacker-text {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div id="backgroundPattern" class="background-pattern"></div>
+
+    <header>
+        <div class="navbar-content">
+            <a href="#" class="navbar-brand">HumbleWealth</a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="Chapters.html" class="nav-link">Chapters</a>
+                <a href="#instructors" class="nav-link">Discord</a>
+                <a href="#enroll" class="nav-link">Log Out</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="progress-bar">
+        <div class="progress" id="readingProgress"></div>
+    </div>
+
+    <div class="content">
+        <section id="intro" class="section">
+            <div class="section-content">
+                <h1>Chapter One: Introduction to Futures Markets</h1>
+                <p>Welcome to the world of futures trading. In this comprehensive chapter, we'll explore the foundations of futures markets through a series of five in-depth videos. Each video is designed to provide you with essential knowledge and insights, preparing you for success in the dynamic world of futures trading.</p>
+                <p>As we embark on this journey, you'll discover the intricacies of futures contracts, the historical context that shaped these markets, and the key players that drive their evolution. We'll delve into the global landscape of futures exchanges, unravel the regulatory framework that governs this complex ecosystem, and equip you with the practical knowledge needed to navigate trading platforms and infrastructure.</p>
+                <p>By the end of this chapter, you'll have a solid foundation in futures trading concepts, setting the stage for more advanced topics in subsequent chapters. Let's begin this exciting exploration of the futures markets!</p>
+            </div>
+        </section>
+
+        <section id="video1" class="section">
+            <div class="section-content">
+                <div class="video-container">
+                    <div class="video-thumbnail">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <h2>Foundations of Futures Trading</h2>
+                    <ul class="video-topics">
+                        <li>What are futures contracts?</li>
+                        <li>History and evolution</li>
+                        <li>Key market participants</li>
+                        <li>Basic terminology</li>
+                    </ul>
+                </div>
+                <div class="description-container">
+                    <p>Dive into the core concepts of futures trading, exploring the nature of futures contracts, their historical development, and the key players in the market. This video provides a solid foundation for understanding the terminology and basic principles that govern futures markets.</p>
+                    <p>We'll start by defining futures contracts and their unique characteristics, tracing their origins from agricultural commodities to the diverse array of financial instruments traded today. You'll learn about the pivotal moments in history that shaped the futures markets, including the establishment of the Chicago Board of Trade and the introduction of financial futures.</p>
+                    <p>As we explore the key market participants, you'll gain insights into the roles of hedgers, speculators, and market makers, understanding how their interactions create market liquidity and price discovery. We'll also demystify essential terminology, equipping you with the vocabulary needed to navigate futures trading discussions confidently.</p>
+                    <p>By the end of this video, you'll have a comprehensive understanding of the foundational elements of futures trading, setting the stage for more advanced concepts in the following sections.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="video2" class="section">
+            <div class="section-content">
+                <div class="video-container">
+                    <div class="video-thumbnail">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <h2>Major Markets and Exchanges</h2>
+                    <ul class="video-topics">
+                        <li>Global futures exchanges</li>
+                        <li>Types of futures contracts</li>
+                        <li>Trading hours and sessions</li>
+                        <li>Market infrastructure</li>
+                    </ul>
+                </div>
+                <div class="description-container">
+                    <p>Explore the global landscape of futures trading, including major exchanges and the diverse range of contracts available. This video will help you understand the structure of the futures market, trading hours, and the critical infrastructure that supports these markets.</p>
+                    <p>We'll take a virtual tour of the world's leading futures exchanges, from the Chicago Mercantile Exchange (CME) to the Intercontinental Exchange (ICE) and beyond. You'll learn about the specialties of each exchange and how they've evolved to meet the needs of a global trading community.</p>
+                    <p>As we delve into the types of futures contracts, you'll discover the vast array of tradable assets, including commodities, currencies, stock indices, and even cryptocurrencies. We'll explain how these contracts are standardized and the importance of contract specifications in trading decisions.</p>
+                    <p>Understanding trading hours and sessions is crucial for navigating the 24-hour nature of futures markets. We'll break down the concept of electronic trading and how it has transformed market accessibility. Finally, we'll explore the technological infrastructure that powers modern futures trading, from order matching systems to clearing houses.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="video3" class="section">
+            <div class="section-content">
+                <div class="video-container">
+                    <div class="video-thumbnail">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <h2>Regulatory Framework</h2>
+                    <ul class="video-topics">
+                        <li>CFTC and NFA roles</li>
+                        <li>Trading regulations</li>
+                        <li>Compliance requirements</li>
+                        <li>Account protection</li>
+                    </ul>
+                </div>
+                <div class="description-container">
+                    <p>Understand the regulatory environment that governs futures trading, including key regulatory bodies and their roles. This video covers essential compliance requirements and measures in place to protect traders and maintain market integrity.</p>
+                    <p>We'll start by introducing the Commodity Futures Trading Commission (CFTC) and the National Futures Association (NFA), explaining their roles in overseeing and regulating the futures markets. You'll learn about the key regulations that shape trading practices, including position limits, margin requirements, and reporting obligations.</p>
+                    <p>As we explore compliance requirements, you'll gain insights into the importance of know-your-customer (KYC) procedures, anti-money laundering (AML) policies, and the concept of suitability in futures trading. We'll also discuss the ongoing obligations of traders and how to stay compliant with regulatory standards.</p>
+                    <p>Finally, we'll delve into the measures in place to protect your account and funds, including segregated accounts, the role of clearing houses, and the importance of choosing regulated brokers. By the end of this video, you'll have a clear understanding of the regulatory landscape and how it impacts your trading activities.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="video4" class="section">
+            <div class="section-content">
+                <div class="video-container">
+                    <div class="video-thumbnail">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <h2>Trading Infrastructure</h2>
+                    <ul class="video-topics">
+                        <li>Broker selection</li>
+                        <li>Platform overview</li>
+                        <li>Data feeds and tools</li>
+                        <li>Account setup process</li>
+                    </ul>
+                </div>
+                <div class="description-container">
+                    <p>Learn about the practical aspects of setting up for futures trading, including choosing a broker and understanding trading platforms. This video provides insights into the tools and data feeds essential for successful futures trading.</p>
+                    <p>We'll guide you through the process of selecting a futures broker, discussing key factors such as regulatory compliance, available markets, fees, and customer support. You'll learn how to evaluate different brokers and choose one that aligns with your trading goals and experience level.</p>
+                    <p>Next, we'll provide an overview of popular futures trading platforms, exploring their features, user interfaces, and customization options. You'll gain insights into order types, charting tools, and risk management features that are crucial for effective trading.</p>
+                    <p>We'll also delve into the importance of reliable data feeds and how to access real-time market data. You'll learn about additional tools and resources that can enhance your trading, such as news feeds, economic calendars, and analysis software.</p>
+                    <p>Finally, we'll walk you through the account setup process, explaining the steps involved in opening a futures trading account, funding it, and preparing for your first trade. By the end of this video, you'll be well-equipped to set up your trading infrastructure and start your futures trading journey.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="video5" class="section">
+            <div class="section-content">
+                <div class="video-container">
+                    <div class="video-thumbnail">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <h2>Getting Started</h2>
+                    <ul class="video-topics">
+                        <li>Paper trading accounts</li>
+                        <li>Basic order types</li>
+                        <li>Position tracking</li>
+                        <li>Risk management basics</li>
+                    </ul>
+                </div>
+                <div class="description-container">
+                    <p>Take your first steps into futures trading with guidance on paper trading, understanding basic order types, and tracking positions. This video introduces fundamental risk management concepts to help you start your trading journey on the right foot.</p>
+                    <p>We'll begin by exploring the benefits of paper trading and how to set up a simulated account. You'll learn how to use these practice accounts to test strategies, familiarize yourself with platform features, and build confidence without risking real capital.</p>
+                    <p>Next, we'll dive into basic order types, including market orders, limit orders, and stop orders. You'll understand how each order type works and when to use them effectively in your trading strategy. We'll also introduce more advanced order types that can help manage risk and automate your trading plan.</p>
+                    <p>Position tracking is crucial for managing your trades and overall portfolio. We'll show you how to monitor your open positions, calculate profit and loss, and understand key metrics like margin requirements and account balance.</p>
+                    <p>Finally, we'll introduce fundamental risk management concepts, including position sizing, stop-loss placement, and the importance of maintaining a trading journal. You'll learn about risk-to-reward ratios and how to develop a disciplined approach to managing your trading capital.</p>
+                    <p>By the end of this video, you'll have the knowledge and tools to begin your futures trading journey with a solid foundation in best practices and risk management techniques.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="navigation">
+        <a href="Chapters.html" class="nav-button">Back to Home</a>
+        <a href="ch2.html" class="nav-button">Next Chapter</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const backgroundPattern = document.getElementById('backgroundPattern');
+            const patternSize = 100;
+            const lineThickness = 2;
+
+            function createDiamondPattern() {
+                const width = window.innerWidth;
+                const height = Math.max(document.body.scrollHeight, window.innerHeight);
+                backgroundPattern.style.height = height + 'px';
+
+                for (let x = 0; x < width + patternSize; x += patternSize) {
+                    for (let y = 0; y < height + patternSize; y += patternSize) {
+                        const line1 = document.createElement('div');
+                        line1.className = 'diamond-line';
+                        line1.style.width = `${patternSize * Math.sqrt(2)}px`;
+                        line1.style.height = `${lineThickness}px`;
+                        line1.style.left = `${x - patternSize / 2}px`;
+                        line1.style.top = `${y}px`;
+                        line1.style.transform = 'rotate(45deg)';
+
+                        const line2 = line1.cloneNode();
+                        line2.style.transform = 'rotate(-45deg)';
+
+                        backgroundPattern.appendChild(line1);
+                        backgroundPattern.appendChild(line2);
+                    }
+                }
+            }
+
+            createDiamondPattern();
+
+            window.addEventListener('resize', () => {
+                backgroundPattern.innerHTML = '';
+                createDiamondPattern();
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                const mouseX = e.clientX;
+                const mouseY = e.clientY;
+
+                const lines = document.querySelectorAll('.diamond-line');
+                lines.forEach(line => {
+                    const rect = line.getBoundingClientRect();
+                    const distance = Math.sqrt(
+                        Math.pow(mouseX - (rect.left + rect.width / 2), 2) +
+                        Math.pow(mouseY - (rect.top + rect.height / 2), 2)
+                    );
+
+                    if (distance < 150) {
+                        line.style.opacity = 0.8 - (distance / 150) * 0.6;
+                    } else {
+                        line.style.opacity = 0.2;
+                    }
+                });
+            });
+
+            // Reading progress functionality
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                document.getElementById("readingProgress").style.width = scrolled + "%";
+            });
+
+            // Hacker text effect
+            function hackerTextEffect(element) {
+                const text = element.textContent;
+                const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                const numbers = '0123456789';
+                let iteration = 0;
+                
+                const interval = setInterval(() => {
+                    element.textContent = text.split("")
+                        .map((char, index) => {
+                            if(index < iteration) {
+                                return text[index];
+                            }
+                            if(char === ' ') return ' ';
+                            return numbers[Math.floor(Math.random() * numbers.length)];
+                        })
+                        .join("");
+                    
+                    if(iteration >= text.length){ 
+                        clearInterval(interval);
+                    }
+                    
+                    iteration += 1 / 3;
+                }, 30);
+            }
+
+            function wrapTextWithSpans(element) {
+                element.innerHTML = element.textContent.replace(/\S+/g, "<span class='hacker-text'>$&</span>");
+            }
+
+            document.querySelectorAll('p, h1, h2, li').forEach(wrapTextWithSpans);
+
+            // Intersection Observer for fade-in and hacker text effect
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                        entry.target.querySelectorAll('.hacker-text').forEach(hackerTextEffect);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.section-content').forEach(section => {
+                section.style.opacity = 0;
+                section.style.transform = 'translateY(20px)';
+                section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(section);
+            });
+
+            // Hover effect for video thumbnails
+            document.querySelectorAll('.video-thumbnail').forEach(thumbnail => {
+                thumbnail.addEventListener('mouseenter', () => {
+                    thumbnail.style.transform = 'scale(1.05)';
+                });
+                thumbnail.addEventListener('mouseleave', () => {
+                    thumbnail.style.transform = 'scale(1)';
+                });
+            });
+
+            // Hover effect for section content
+            document.querySelectorAll('.section-content').forEach(content => {
+                content.addEventListener('mouseenter', () => {
+                    content.style.transform = 'translateY(-5px)';
+                    content.style.boxShadow = '0 15px 40px rgba(0, 0, 0, 0.3)';
+                });
+                content.addEventListener('mouseleave', () => {
+                    content.style.transform = 'translateY(0)';
+                    content.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.2)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

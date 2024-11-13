@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Chapter Two: Market Analysis Foundations | HumbleWealth</title>
+        <link rel="icon" href="data:,">
+        <meta name="msapplication-config" content="none" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #0a0a0a;
+            --secondary-bg: #1a1a1a;
+            --accent-color: #00ffaa;
+            --text-color: #ffffff;
+            --header-height: 60px;
+        }
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Share Tech Mono', monospace;
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            height: 100%;
+            overflow-x: hidden;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        .background-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .diamond-line {
+            position: absolute;
+            background: linear-gradient(45deg, transparent, var(--accent-color), transparent);
+            transition: opacity 0.3s ease;
+            opacity: 0.2;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            background-color: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            padding: 0 2rem;
+        }
+        .navbar-brand {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-color);
+            text-decoration: none;
+            background: linear-gradient(45deg, var(--accent-color), #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientFade 5s ease infinite;
+            background-size: 200% 200%;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        .nav-link {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: var(--accent-color);
+        }
+        h1, h2 {
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--accent-color), #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientFade 5s ease infinite;
+            background-size: 200% 200%;
+        }
+        h1 {
+            font-size: 3.5rem;
+        }
+        h2 {
+            font-size: 2.5rem;
+        }
+        @keyframes gradientFade {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .content {
+            padding-top: calc(var(--header-height) + 2rem);
+        }
+        .section {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: 4rem 0;
+        }
+        .section-content {
+            max-width: 100%;
+            width: 100%;
+            padding: 3rem;
+            background-color: rgba(26, 26, 26, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 2;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            overflow: hidden;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: stretch;
+            min-height: calc(100vh - 200px);
+        }
+        .section-content:hover {
+            background-color: rgba(45, 119, 107, 0.171);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        .video-container {
+            width: 45%;
+            display: flex;
+            flex-direction: column;
+        }
+        .description-container {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        .video-thumbnail {
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%;
+            background-color: var(--secondary-bg);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        .video-thumbnail i {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            color: var(--accent-color);
+            opacity: 0.8;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            background: linear-gradient(45deg, var(--accent-color), #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientFade 5s ease infinite;
+            background-size: 200% 200%;
+        }
+        .video-thumbnail:hover {
+            transform: scale(1.05);
+        }
+        .video-thumbnail:hover i {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        .video-topics {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 1rem;
+        }
+        .video-topics li {
+            margin-bottom: 0.5rem;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        .video-topics li:hover {
+            color: var(--accent-color);
+            transform: translateX(10px);
+        }
+        .progress-bar {
+            position: fixed;
+            top: var(--header-height);
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+        }
+        .progress {
+            height: 100%;
+            background-color: var(--accent-color);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            padding: 2rem;
+        }
+        .nav-button {
+            padding: 0.5rem 1rem;
+            background-color: var(--secondary-bg);
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .nav-button:hover {
+            background-color: var(--accent-color);
+            color: var(--primary-bg);
+            transform: translateY(-3px);
+        }
+        .hacker-text {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div id="backgroundPattern" class="background-pattern"></div>
+
+        <header>
+            <div class="navbar-content">
+                <a href="#" class="navbar-brand">HumbleWealth</a>
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="Chapters.html" class="nav-link">Chapters</a>
+                    <a href="#instructors" class="nav-link">Discord</a>
+                    <a href="#enroll" class="nav-link">Log Out</a>
+                </div>
+            </div>
+        </header>
+    
+        <div class="progress-bar">
+            <div class="progress" id="readingProgress"></div>
+        </div>
+    
+        <div class="content">
+            <section id="intro" class="section">
+                <div class="section-content">
+                    <h1>Chapter Two: Market Analysis Foundations</h1>
+                    <p>Welcome to Chapter Two of our comprehensive futures trading course. In this chapter, we'll dive deep into the foundations of market analysis, equipping you with essential tools and techniques to understand market dynamics and make informed trading decisions.</p>
+                    <p>Through a series of six in-depth videos, we'll explore both technical and fundamental analysis methods, providing you with a well-rounded approach to interpreting market movements. You'll learn how to read charts, identify patterns, use key indicators, and integrate various analysis techniques to develop a holistic view of the markets.</p>
+                    <p>By the end of this chapter, you'll have a solid grasp of market analysis principles, setting the stage for more advanced trading strategies in the chapters to come. Let's embark on this exciting journey into the world of market analysis!</p>
+                </div>
+            </section>
+    
+            <section id="video6" class="section">
+                <div class="section-content">
+                    <div class="video-container">
+                        <div class="video-thumbnail">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                        <h2>Supply and Demand Basics</h2>
+                        <ul class="video-topics">
+                            <li>Price discovery process</li>
+                            <li>Supply factors</li>
+                            <li>Demand factors</li>
+                            <li>Market equilibrium</li>
+                        </ul>
+                    </div>
+                    <div class="description-container">
+                        <p>Delve into the fundamental principles that drive market movements. This video explores the intricate balance between supply and demand, unraveling the forces that shape price discovery.</p>
+                        <p>We'll start by examining the price discovery process, understanding how market participants interact to determine fair value. You'll learn about various supply factors, such as production levels, inventory, and technological advancements, and how they influence market dynamics.</p>
+                        <p>As we explore demand factors, you'll gain insights into consumer behavior, economic conditions, and other elements that affect buying pressure. We'll also discuss the concept of market equilibrium and how shifts in supply and demand can lead to price movements.</p>
+                        <p>By the end of this video, you'll have a comprehensive understanding of the supply and demand framework, providing you with a crucial foundation for analyzing market trends and potential trading opportunities.</p>
+                    </div>
+                </div>
+            </section>
+    
+            <section id="video7" class="section">
+                <div class="section-content">
+                    <div class="video-container">
+                        <div class="video-thumbnail">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                        <h2>Technical Analysis Fundamentals</h2>
+                        <ul class="video-topics">
+                            <li>Chart types</li>
+                            <li>Timeframes</li>
+                            <li>Basic patterns</li>
+                            <li>Support and resistance</li>
+                        </ul>
+                    </div>
+                    <div class="description-container">
+                        <p>Embark on your journey into technical analysis with this comprehensive introduction. Learn to decipher various chart types and understand how different timeframes can affect your analysis.</p>
+                        <p>We'll explore the most common chart types used in futures trading, including line charts, bar charts, and the popular candlestick charts. You'll learn how to read these charts and extract valuable information about price action and market sentiment.</p>
+                        <p>Next, we'll delve into the concept of timeframes, discussing how to choose the right timeframe for your trading style and how to use multiple timeframes to confirm trends. We'll also introduce you to basic chart patterns that can signal potential market movements.</p>
+                        <p>Finally, we'll cover the crucial concepts of support and resistance, teaching you how to identify these key levels and use them in your trading decisions. By the end of this video, you'll have a solid foundation in technical analysis, ready to apply these concepts to real market scenarios.</p>
+                    </div>
+                </div>
+            </section>
+    
+            <section id="video8" class="section">
+                <div class="section-content">
+                    <div class="video-container">
+                        <div class="video-thumbnail">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                        <h2>Key Technical Indicators</h2>
+                        <ul class="video-topics">
+                            <li>Moving averages</li>
+                            <li>RSI and MACD</li>
+                            <li>Volume analysis</li>
+                            <li>Trend indicators</li>
+                        </ul>
+                    </div>
+                    <div class="description-container">
+                        <p>Dive deeper into technical analysis by mastering essential indicators. This video covers a range of powerful tools that can enhance your market analysis and trading decisions.</p>
+                        <p>We'll start with moving averages, explaining how to use them to identify trends and potential reversals. You'll learn about different types of moving averages and how to apply them effectively in various market conditions.</p>
+                        <p>Next, we'll explore momentum indicators like the Relative Strength Index (RSI) and Moving Average Convergence Divergence (MACD). You'll discover how these indicators can help you gauge market sentiment and spot overbought or oversold conditions.</p>
+                        <p>We'll also delve into volume analysis, teaching you how to use volume data to confirm price movements and assess the strength of trends. Finally, we'll introduce you to various trend indicators that can help you stay on the right side of the market.</p>
+                        <p>By the end of this video, you'll have a comprehensive toolkit of technical indicators at your disposal, ready to apply them in your market analysis and trading strategies.</p>
+                    </div>
+                </div>
+            </section>
+    
+            <section id="video9" class="section">
+                <div class="section-content">
+                    <div class="video-container">
+                        <div class="video-thumbnail">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                        <h2>Advanced Chart Patterns</h2>
+                        <ul class="video-topics">
+                            <li>Head and shoulders</li>
+                            <li>Double tops/bottoms</li>
+                            <li>Triangles and flags</li>
+                            <li>Fibonacci patterns</li>
+                        </ul>
+                    </div>
+                    <div class="description-container">
+                        <p>Take your chart reading skills to the next level with this exploration of advanced patterns. Learn to identify and trade complex formations that can signal significant market moves.</p>
+                        <p>We'll start by examining the head and shoulders pattern, a powerful formation that can indicate major trend reversals. You'll learn how to identify this pattern, understand its implications, and develop strategies for trading it effectively.</p>
+                        <p>Next, we'll cover double tops and bottoms, crucial patterns that can confirm the end of trends. We'll also explore continuation patterns such as triangles and flags, teaching you how to spot these formations and use them to enter trades in the direction of the prevailing trend.</p>
+                        <p>Finally, we'll delve into Fibonacci patterns, introducing you to retracement levels, extension levels, and how to use them to identify potential support, resistance, and price targets. By mastering these advanced chart patterns, you'll significantly enhance your ability to read market dynamics and make informed trading decisions.</p>
+                    </div>
+                </div>
+            </section>
+    
+            <section id="video10" class="section">
+                <div class="section-content">
+                    <div class="video-container">
+                        <div class="video-thumbnail">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                        <h2>Fundamental Analysis</h2>
+                        <ul class="video-topics">
+                            <li>Economic indicators</li>
+                            <li>Market reports</li>
+                            <li>News analysis</li>
+                            <li>Macro factors</li>
+                        </ul>
+                    </div>
+                    <div class="description-container">
+                        <p>Broaden your analytical toolkit by incorporating fundamental analysis. This video introduces you to key economic indicators and how they impact financial markets.</p>
+                        <p>We'll start by exploring important economic indicators such as GDP, employment data, inflation rates, and central bank policies. You'll learn how to interpret these indicators and understand their potential impact on various asset classes.</p>
+                        <p>Next, we'll dive into market reports, teaching you how to read and analyze reports from government agencies, industry bodies, and financial institutions. We'll also guide you through the process of analyzing news events and their potential market implications.</p>
+                        <p>Finally, we'll explore macro factors that can influence long-term market trends, including geopolitical events, technological advancements, and demographic shifts. By the end of this video, you'll have a comprehensive understanding of fundamental analysis, allowing you to combine it with technical analysis for a more robust trading approach.</p>
+                    </div>
+                </div>
+            </section>
+    
+            <section id="video11" class="section">
+                <div class="section-content">
+                    <div class="video-container">
+                        <div class="video-thumbnail">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                        <h2>Integration of Analysis Methods</h2>
+                        <ul class="video-topics">
+                            <li>Combining technical and fundamental analysis</li>
+                            <li>Creating a holistic view</li>
+                            <li>Real-world examples</li>
+                            <li>Decision-making framework</li>
+                        </ul>
+                    </div>
+                    <div class="description-container">
+                        <p>In this final video, learn how to synthesize technical and fundamental analysis for a more robust trading approach. We'll show you how to create a holistic market view by combining various analysis methods.</p>
+                        <p>We'll start by exploring how technical and fundamental analysis can complement each other, providing a more comprehensive understanding of market dynamics. You'll learn strategies for reconciling conflicting signals and making informed decisions based on multiple factors.</p>
+                        <p>Through real-world examples, we'll demonstrate how different analysis methods can be applied in various market scenarios. You'll see how combining chart patterns, indicators, and fundamental data can lead to more accurate market predictions and better-timed trades.</p>
+                        <p>Finally, we'll introduce a decision-making framework that integrates all the concepts covered in this chapter. This framework will help you systematically analyze markets, manage risk, and make confident trading decisions. By the end of this video, you'll be equipped with a comprehensive approach to market analysis, ready to apply these skills in your trading journey.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    
+        <div class="navigation">
+            <a href="ch1.html" class="nav-button">Previous Chapter</a>
+            <a href="ch3.html" class="nav-button">Next Chapter</a>
+        </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const backgroundPattern = document.getElementById('backgroundPattern');
+            const patternSize = 100;
+            const lineThickness = 2;
+
+            function createDiamondPattern() {
+                const width = window.innerWidth;
+                const height = Math.max(document.body.scrollHeight, window.innerHeight);
+                backgroundPattern.style.height = height + 'px';
+
+                for (let x = 0; x < width + patternSize; x += patternSize) {
+                    for (let y = 0; y < height + patternSize; y += patternSize) {
+                        const line1 = document.createElement('div');
+                        line1.className = 'diamond-line';
+                        line1.style.width = `${patternSize * Math.sqrt(2)}px`;
+                        line1.style.height = `${lineThickness}px`;
+                        line1.style.left = `${x - patternSize / 2}px`;
+                        line1.style.top = `${y}px`;
+                        line1.style.transform = 'rotate(45deg)';
+
+                        const line2 = line1.cloneNode();
+                        line2.style.transform = 'rotate(-45deg)';
+
+                        backgroundPattern.appendChild(line1);
+                        backgroundPattern.appendChild(line2);
+                    }
+                }
+            }
+
+            createDiamondPattern();
+
+            window.addEventListener('resize', () => {
+                backgroundPattern.innerHTML = '';
+                createDiamondPattern();
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                const mouseX = e.clientX;
+                const mouseY = e.clientY;
+
+                const lines = document.querySelectorAll('.diamond-line');
+                lines.forEach(line => {
+                    const rect = line.getBoundingClientRect();
+                    const distance = Math.sqrt(
+                        Math.pow(mouseX - (rect.left + rect.width / 2), 2) +
+                        Math.pow(mouseY - (rect.top + rect.height / 2), 2)
+                    );
+
+                    if (distance < 150) {
+                        line.style.opacity = 0.8 - (distance / 150) * 0.6;
+                    } else {
+                        line.style.opacity = 0.2;
+                    }
+                });
+            });
+
+            // Reading progress functionality
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                document.getElementById("readingProgress").style.width = scrolled + "%";
+            });
+
+            // Hacker text effect
+            function hackerTextEffect(element) {
+                const text = element.textContent;
+                const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                const numbers = '0123456789';
+                let iteration = 0;
+                
+                const interval = setInterval(() => {
+                    element.textContent = text.split("")
+                        .map((char, index) => {
+                            if(index < iteration) {
+                                return text[index];
+                            }
+                            if(char === ' ') return ' ';
+                            return numbers[Math.floor(Math.random() * numbers.length)];
+                        })
+                        .join("");
+                    
+                    if(iteration >= text.length){ 
+                        clearInterval(interval);
+                    }
+                    
+                    iteration += 1 / 3;
+                }, 30);
+            }
+
+            function wrapTextWithSpans(element) {
+                element.innerHTML = element.textContent.replace(/\S+/g, "<span class='hacker-text'>$&</span>");
+            }
+
+            document.querySelectorAll('p, h1, h2, li').forEach(wrapTextWithSpans);
+
+            // Intersection Observer for fade-in and hacker text effect
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                        entry.target.querySelectorAll('.hacker-text').forEach(hackerTextEffect);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.section-content').forEach(section => {
+                section.style.opacity = 0;
+                section.style.transform = 'translateY(20px)';
+                section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(section);
+            });
+
+            // Hover effect for video thumbnails
+            document.querySelectorAll('.video-thumbnail').forEach(thumbnail => {
+                thumbnail.addEventListener('mouseenter', () => {
+                    thumbnail.style.transform = 'scale(1.05)';
+                });
+                thumbnail.addEventListener('mouseleave', () => {
+                    thumbnail.style.transform = 'scale(1)';
+                });
+            });
+
+            // Hover effect for section content
+            document.querySelectorAll('.section-content').forEach(content => {
+                content.addEventListener('mouseenter', () => {
+                    content.style.transform = 'translateY(-5px)';
+                    content.style.boxShadow = '0 15px 40px rgba(0, 0, 0, 0.3)';
+                });
+                content.addEventListener('mouseleave', () => {
+                    content.style.transform = 'translateY(0)';
+                    content.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.2)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
